@@ -67,7 +67,7 @@ export function CoderLoader({
     };
   }, [done, successHoldMs, onSuccessHoldComplete]);
 
-  const typingFrame = tick % 2 === 0 ? typingImg : typing2Img;
+  const typingA = tick % 2 === 0;
 
   return (
     <div className={`flex flex-col items-center justify-center gap-5 ${className}`}>
@@ -79,10 +79,16 @@ export function CoderLoader({
       >
         <div className="coder-glow" />
         <img
-          src={typingFrame}
+          src={typingImg}
           alt=""
           className="coder-frame coder-frame-typing"
-          style={{ opacity: phase === "typing" ? 1 : 0 }}
+          style={{ opacity: phase === "typing" ? (typingA ? 1 : 0) : 0 }}
+        />
+        <img
+          src={typing2Img}
+          alt=""
+          className="coder-frame coder-frame-typing"
+          style={{ opacity: phase === "typing" ? (typingA ? 0 : 1) : 0 }}
         />
         <img
           src={slapImg}
