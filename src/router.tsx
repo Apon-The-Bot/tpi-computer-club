@@ -12,7 +12,7 @@ export const getRouter = () => {
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
     defaultPendingComponent: () => (
-      <div className="fixed inset-0 z-50 grid place-items-center bg-transparent pointer-events-none">
+      <div className="fixed inset-0 z-50 grid place-items-center bg-background/40 backdrop-blur-md">
         <CoderLoader label="Loading the next page…" size={260} />
       </div>
     ),
