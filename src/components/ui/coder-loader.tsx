@@ -94,7 +94,7 @@ export function CoderLoader({
           src={slapImg}
           alt=""
           className="coder-frame coder-frame-slap"
-          style={{ opacity: phase === "slap" ? 1 : 0 }}
+          style={{ opacity: phase === "slap" ? 1 : 0, transitionDuration: "320ms" }}
         />
         <img
           src={successImg}
@@ -135,8 +135,8 @@ export function CoderLoader({
           animation: coder-bob 1.6s ease-in-out infinite;
         }
         .coder-loader-stage[data-phase="slap"] .coder-frame-slap {
-          animation: coder-slap-hit .48s cubic-bezier(.18,.86,.2,1.18) both;
-          transform-origin: 58% 52%;
+          animation: coder-slap-hit .82s cubic-bezier(.18,.86,.2,1.18) both;
+          transform-origin: 60% 55%;
         }
         .coder-loader-stage[data-phase="success"] .coder-frame-success {
           animation: coder-pop .45s cubic-bezier(.34,1.56,.64,1);
@@ -147,11 +147,13 @@ export function CoderLoader({
           50% { transform: translateY(-3px); }
         }
         @keyframes coder-slap-hit {
-          0% { transform: translateX(0) rotate(0deg) scale(1); }
-          28% { transform: translateX(10px) rotate(2deg) scale(1.02); }
-          50% { transform: translateX(-12px) rotate(-4deg) scale(.99); }
-          72% { transform: translateX(7px) rotate(2deg) scale(1.01); }
-          100% { transform: translateX(0) rotate(0deg) scale(1); }
+          0% { transform: translateX(0) translateY(0) rotate(0deg) scale(1); }
+          12% { transform: translateX(-4px) translateY(-6px) rotate(-3deg) scale(1.03); }
+          26% { transform: translateX(14px) translateY(6px) rotate(5deg) scale(1.05); }
+          44% { transform: translateX(-16px) translateY(-2px) rotate(-5deg) scale(.98); }
+          60% { transform: translateX(10px) translateY(3px) rotate(3deg) scale(1.02); }
+          76% { transform: translateX(-6px) translateY(-1px) rotate(-2deg) scale(1.01); }
+          100% { transform: translateX(0) translateY(0) rotate(0deg) scale(1); }
         }
         @keyframes coder-pop {
           0% { transform: scale(.85); }

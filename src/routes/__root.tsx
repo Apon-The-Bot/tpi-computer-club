@@ -125,7 +125,7 @@ function RootComponent() {
   const [done, setDone] = useState(false);
 
   // Minimum time the typing+slap cycle must be visible before "success" can show
-  const MIN_SHOW_MS = 1700;
+  const MIN_SHOW_MS = 2900;
 
   // Helper to start a fresh loading cycle and only mark done after MIN_SHOW_MS + page resolved
   useEffect(() => {
@@ -191,8 +191,8 @@ function RootComponent() {
             done={done}
             size={320}
             label="Loading…"
-            cycleMs={1500}
-            slapMs={550}
+            cycleMs={2000}
+            slapMs={850}
             successHoldMs={1200}
             onSuccessHoldComplete={() => setLoading(false)}
           />
