@@ -94,7 +94,7 @@ export function CoderLoader({
           src={slapImg}
           alt=""
           className="coder-frame coder-frame-slap"
-          style={{ opacity: phase === "slap" ? 1 : 0 }}
+          style={{ opacity: phase === "slap" ? 1 : 0, transitionDuration: "320ms" }}
         />
         <img
           src={successImg}
