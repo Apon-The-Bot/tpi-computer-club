@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { allLessons, type Course } from "@/data/courses";
 
 const KEY = "tpi-progress-v1";
@@ -45,8 +46,6 @@ export function totalCompleted() {
   return Object.keys(read()).length;
 }
 export function useProgressVersion() {
-  // Lightweight subscription hook
-  const { useEffect, useState } = require("react") as typeof import("react");
   const [v, setV] = useState(0);
   useEffect(() => {
     const h = () => setV((x) => x + 1);
