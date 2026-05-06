@@ -30,7 +30,7 @@ export const Route = createFileRoute("/courses/$slug/")({
 
 function CourseDetail() {
   useProgressVersion();
-  const { course } = Route.useLoaderData();
+  const { course } = Route.useLoaderData() as { course: import("@/data/courses").Course };
   const p = courseProgress(course);
   const first = allLessons(course)[0];
   const next = allLessons(course).find((l) => !isLessonComplete(l.id)) ?? first;

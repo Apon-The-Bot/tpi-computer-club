@@ -22,7 +22,11 @@ export const Route = createFileRoute("/courses/$slug/lessons/$lessonSlug")({
 
 function LessonPage() {
   useProgressVersion();
-  const { course, module: mod, lesson } = Route.useLoaderData();
+  const { course, module: mod, lesson } = Route.useLoaderData() as {
+    course: import("@/data/courses").Course;
+    module: import("@/data/courses").Module;
+    lesson: import("@/data/courses").Lesson;
+  };
   const lessons = allLessons(course);
   const idx = lessons.findIndex((l) => l.id === lesson.id);
   const prev = lessons[idx - 1];
