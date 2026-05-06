@@ -81,7 +81,7 @@ export const team: TeamMember[] = [
     initials: "RH",
   },
   {
-    id: "t9",
+    id: "t10",
     name: "Md. Mehedi Hasan Munna",
     role: "Training & Development Secretary",
     department: "CST · 4th Sem · Shift 2",
@@ -89,7 +89,7 @@ export const team: TeamMember[] = [
     initials: "MM",
   },
   {
-    id: "t10",
+    id: "t11",
     name: "Oli Ahmed",
     role: "Technical & Communication Secretary",
     department: "CST · 6th Sem · Shift 2",
