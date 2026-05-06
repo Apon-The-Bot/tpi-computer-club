@@ -17,7 +17,7 @@ export const Route = createFileRoute("/events")({
   component: Events,
 });
 
-const cats: ("All" | EventCategory)[] = ["All", "Workshop", "Seminar", "Competition", "Training", "Awareness"];
+const cats: ("All" | EventCategory)[] = ["All", "Collaboration", "Workshop", "Seminar", "Competition", "Training", "Awareness"];
 
 function Events() {
   const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
@@ -49,16 +49,23 @@ function Events() {
 
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((e) => (
-            <div key={e.id} className="rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-1 hover:border-primary/40">
-              <div className="flex items-center justify-between">
-                <span className="rounded-md border border-border px-2 py-0.5 font-mono text-[10px] text-cyber">{e.category}</span>
-                <span className="text-xs text-muted-foreground inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(e.date).toLocaleDateString()}</span>
-              </div>
-              <h3 className="mt-3 text-lg font-semibold">{e.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{e.description}</p>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="inline-flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3 w-3" /> {e.location}</span>
-                <button className="text-xs font-semibold text-primary">Details →</button>
+            <div key={e.id} className="group overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow">
+              {e.image && (
+                <div className="aspect-video overflow-hidden bg-background">
+                  <img src={e.image} alt={e.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+              )}
+              <div className="p-5">
+                <div className="flex items-center justify-between">
+                  <span className="rounded-md border border-border px-2 py-0.5 font-mono text-[10px] text-cyber">{e.category}</span>
+                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground"><Calendar className="h-3 w-3" /> {new Date(e.date).toLocaleDateString()}</span>
+                </div>
+                <h3 className="mt-3 text-base font-semibold leading-snug">{e.title}</h3>
+                <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{e.description}</p>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3 w-3" /> {e.location}</span>
+                  {e.host && <span className="text-[10px] font-mono text-primary">{e.host}</span>}
+                </div>
               </div>
             </div>
           ))}
