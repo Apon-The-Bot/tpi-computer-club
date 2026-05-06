@@ -66,10 +66,18 @@ export const team: TeamMember[] = [
   },
   {
     id: "t8",
+    name: "Sirajul Alim Khan Ridom",
+    role: "Publication Secretary",
+    department: "CST · 6th Sem · Shift 2",
+    bio: "Leads publications, content and editorial work for the club.",
+    initials: "SR",
+  },
+  {
+    id: "t9",
     name: "Md. Rakib Hasan",
-    role: "Media & Publication Secretary",
+    role: "Media Secretary",
     department: "CST · 4th Sem · Shift 1",
-    bio: "Handles media coverage, publications and brand assets.",
+    bio: "Handles media coverage, photography and brand assets.",
     initials: "RH",
   },
   {
