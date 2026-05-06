@@ -124,29 +124,21 @@ function RootComponent() {
   const [loading, setLoading] = useState(true);
   const [done, setDone] = useState(false);
 
-  // Initial mount loader
+  // Initial mount: kick off "ready" after a small delay so the success state shows on first paint
   useEffect(() => {
-    const t1 = setTimeout(() => setDone(true), 700);
-    const t2 = setTimeout(() => setLoading(false), 1300);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    const t = setTimeout(() => setDone(true), 300);
+    return () => clearTimeout(t);
   }, []);
 
-  // Loader on every navigation (including same-route re-clicks)
+  // Show loader on every navigation (including same-route re-clicks)
   useEffect(() => {
-    let doneTimer: ReturnType<typeof setTimeout>;
-    let hideTimer: ReturnType<typeof setTimeout>;
-
     const trigger = () => {
-      clearTimeout(doneTimer);
-      clearTimeout(hideTimer);
       setDone(false);
       setLoading(true);
     };
     const finish = () => {
-      clearTimeout(doneTimer);
-      clearTimeout(hideTimer);
-      doneTimer = setTimeout(() => setDone(true), 400);
-      hideTimer = setTimeout(() => setLoading(false), 1000);
+      // route is resolved -> tell loader it can switch to success
+      setDone(true);
     };
 
     const unsub = router.subscribe("onBeforeNavigate", trigger);
@@ -163,7 +155,8 @@ function RootComponent() {
       const linkPath = href.split("?")[0].split("#")[0];
       if (linkPath === currentPath) {
         trigger();
-        finish();
+        // simulate a quick resolve so success still shows
+        setTimeout(finish, 50);
       }
     };
     document.addEventListener("click", onClick);
@@ -172,8 +165,6 @@ function RootComponent() {
       unsub();
       unsubResolved();
       document.removeEventListener("click", onClick);
-      clearTimeout(doneTimer);
-      clearTimeout(hideTimer);
     };
   }, [router]);
 
@@ -182,7 +173,15 @@ function RootComponent() {
       <Outlet />
       {loading && (
         <div className="fixed inset-0 z-[100] grid place-items-center bg-background/90 backdrop-blur-md animate-in fade-in duration-200">
-          <CoderLoader done={done} size={280} label="Loading…" />
+          <CoderLoader
+            done={done}
+            size={320}
+            label="Loading…"
+            cycleMs={1500}
+            slapMs={550}
+            successHoldMs={1200}
+            onSuccessHoldComplete={() => setLoading(false)}
+          />
         </div>
       )}
     </QueryClientProvider>
