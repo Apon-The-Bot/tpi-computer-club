@@ -1,11 +1,11 @@
 export const mockUser = {
-  name: "Ariful Islam",
+  name: "Amanullah Sheikh Apon",
   department: "Computer Science & Technology",
-  semester: "5th Semester",
+  semester: "6th Semester",
   roll: "2023-CST-021",
-  email: "arif@tpi-club.edu",
+  email: "apon@tpiprogrammingclub.com",
   phone: "+880 1700-000000",
-  initials: "AI",
+  initials: "AA",
   enrolledCourses: ["c-programming", "cpp-programming", "cyber-security"],
   badges: [
     { id: "b1", title: "First Lesson", desc: "Completed your first lesson." },
