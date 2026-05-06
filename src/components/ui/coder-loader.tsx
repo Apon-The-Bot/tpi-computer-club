@@ -27,10 +27,10 @@ export function CoderLoader({
   const [tick, setTick] = useState(0);
   const successTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Alternate typing frames quickly to simulate hand movement
+  // Alternate typing frames smoothly to simulate hand movement
   useEffect(() => {
     if (phase !== "typing") return;
-    const id = setInterval(() => setTick((t) => t + 1), 140);
+    const id = setInterval(() => setTick((t) => t + 1), 260);
     return () => clearInterval(id);
   }, [phase]);
 
