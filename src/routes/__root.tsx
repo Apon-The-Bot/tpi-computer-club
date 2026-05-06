@@ -191,8 +191,8 @@ function RootComponent() {
             done={done}
             size={320}
             label="Loading…"
-            cycleMs={1500}
-            slapMs={550}
+            cycleMs={2000}
+            slapMs={850}
             successHoldMs={1200}
             onSuccessHoldComplete={() => setLoading(false)}
           />
