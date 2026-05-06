@@ -72,7 +72,7 @@ int main(void) {
           <Terminal className="h-3 w-3" /> tpi@club:~$
         </div>
         <div className="mt-1 text-cyber">$ build skills --mode=pro</div>
-        <div className="text-primary">✓ ready to innovate</div>
+        <div className="text-primary">ready to innovate</div>
       </div>
     </div>
   );
