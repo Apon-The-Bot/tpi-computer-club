@@ -56,14 +56,7 @@ function Home() {
         <div className="absolute inset-0 bg-grid opacity-60" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 md:px-6 lg:grid-cols-2 lg:py-28">
           <div>
-            <div className="flex items-center gap-3">
-              <img src={logo} alt="TPI Computer Club" className="h-12 w-12 rounded-full ring-1 ring-border" />
-              <div>
-                <div className="text-xs font-mono uppercase tracking-[0.25em] text-primary">TPI Computer Club</div>
-                <div className="text-[11px] text-muted-foreground">Think. Create. Innovate.</div>
-              </div>
-            </div>
-            <h1 className="mt-7 text-4xl font-semibold leading-[1.1] sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-semibold leading-[1.1] sm:text-5xl lg:text-6xl">
               Building <span className="text-gradient-gold">Future-Ready IT Skills</span> Through Community, Practice & Innovation.
             </h1>
             <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
@@ -76,10 +69,6 @@ function Home() {
               <Link to="/membership" className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary/50 px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary">
                 Join the Club
               </Link>
-            </div>
-            <div className="mt-8 flex items-center gap-4 text-xs text-muted-foreground">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span className="font-mono">5 skill tracks · weekly live classes · hands-on projects</span>
             </div>
           </div>
           <div className="relative">

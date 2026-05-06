@@ -31,7 +31,7 @@ function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <div className="text-xs font-mono uppercase tracking-wider text-primary">Welcome back</div>
-              <h1 className="mt-2 text-2xl font-semibold">Hello, {mockUser.name.split(" ")[0]} 👋</h1>
+              <h1 className="mt-2 text-2xl font-semibold">Hello, {mockUser.name.split(" ")[0]}</h1>
               <p className="mt-1 text-sm text-muted-foreground">{mockUser.department} · {mockUser.semester}</p>
             </div>
             <div className="hidden text-right sm:block">
