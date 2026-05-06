@@ -266,6 +266,32 @@ function Home() {
         </div>
       </section>
 
+      {/* COLLABORATIONS */}
+      <section className="border-t border-border bg-surface/40">
+        <div className="mx-auto max-w-7xl px-4 py-20 md:px-6">
+          <div className="flex items-end justify-between gap-4">
+            <SectionHeader
+              eyebrow="Partnerships"
+              title="In collaboration with Programming Hero"
+              description="Official partnership with Polytechnic Coders by Programming Hero — bringing career summits, live sessions and industry mentorship to TPI students."
+            />
+          </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {collabs.map((c) => (
+              <div key={c.title} className="group overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow">
+                <div className="aspect-square overflow-hidden bg-background">
+                  <img src={c.img} alt={c.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <div className="p-4">
+                  <div className="text-sm font-semibold">{c.title}</div>
+                  <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{c.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* MEMBERSHIP CTA */}
       <section className="border-t border-border bg-hero">
         <div className="mx-auto max-w-5xl px-4 py-20 text-center md:px-6">
