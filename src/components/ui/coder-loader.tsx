@@ -127,8 +127,9 @@ export function CoderLoader({
           width: 100%;
           height: 100%;
           object-fit: contain;
-          transition: opacity .12s ease;
+          transition: opacity .26s ease-in-out;
           z-index: 1;
+          will-change: opacity, transform;
         }
         .coder-loader-stage[data-phase="typing"] .coder-frame-typing {
           animation: coder-bob 1.6s ease-in-out infinite;
