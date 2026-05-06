@@ -184,9 +184,16 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <div
+        className={`min-h-screen transition-[filter,opacity,transform] duration-300 ease-out ${
+          loading ? "pointer-events-none blur-xl scale-[1.01] opacity-60" : "blur-0 scale-100 opacity-100"
+        }`}
+        aria-busy={loading}
+      >
+        <Outlet />
+      </div>
       {loading && (
-        <div className="fixed inset-0 z-[100] grid place-items-center bg-transparent pointer-events-none animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[100] grid place-items-center bg-background/70 backdrop-blur-2xl pointer-events-none animate-in fade-in duration-200">
           <CoderLoader
             done={done}
             size={320}
