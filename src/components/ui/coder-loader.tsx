@@ -11,7 +11,7 @@ export function CoderLoader({
   successHoldMs = 1200,
   label,
   className = "",
-  size = 280,
+  size = "min(70vw, 70vh, 280px)",
   onSuccessHoldComplete,
 }: {
   done?: boolean;
@@ -20,7 +20,7 @@ export function CoderLoader({
   successHoldMs?: number;
   label?: string;
   className?: string;
-  size?: number;
+  size?: number | string;
   onSuccessHoldComplete?: () => void;
 }) {
   const [phase, setPhase] = useState<"typing" | "slap" | "success">("typing");
