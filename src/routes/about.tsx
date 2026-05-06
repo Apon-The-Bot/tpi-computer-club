@@ -6,22 +6,22 @@ import { Target, Eye, CheckCircle2, Users, Sparkles, GraduationCap } from "lucid
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — TPI Computer Club" },
-      { name: "description", content: "Learn about TPI Computer Club — our mission, vision and the technical focus areas we train students in." },
+      { title: "About — TPI Computer Club | Tangail Polytechnic Institute" },
+      { name: "description", content: "TPI Computer Club is the official programming community of the Computer Department at Tangail Polytechnic Institute (TPI), built to take students beyond theory into real, hands-on coding." },
       { property: "og:title", content: "About — TPI Computer Club" },
-      { property: "og:description", content: "Mission, vision and core objectives of the TPI Computer Club." },
+      { property: "og:description", content: "The official programming club of the Computer Department, Tangail Polytechnic Institute (TPI)." },
     ],
   }),
   component: About,
 });
 
 const objectives = [
-  "Develop disciplined coding & problem-solving habits",
-  "Run weekly live classes, workshops and contests",
-  "Mentor students for industry-grade IT skills",
-  "Build a culture of collaboration and ownership",
-  "Encourage research, projects and presentations",
-  "Promote ethical use of technology and security",
+  "Take Computer Department students beyond theory-heavy textbooks into real coding practice",
+  "Run regular hands-on classes, workshops and programming contests inside TPI",
+  "Build problem-solving skills using actual projects, not just exam syllabus",
+  "Mentor juniors so every batch of the Computer Department gets stronger",
+  "Create a friendly space where TPI students learn, build and grow together",
+  "Prepare Computer Department students for jobs, freelancing and higher studies",
 ];
 
 function About() {
@@ -29,10 +29,13 @@ function About() {
     <PublicLayout>
       <section className="bg-hero border-b border-border">
         <div className="mx-auto max-w-5xl px-4 py-20 md:px-6">
-          <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary">About the Club</div>
-          <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">An institutional home for serious tech-minded students.</h1>
+          <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary">About TPI Computer Club</div>
+          <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">Built for the Computer Department students of Tangail Polytechnic Institute.</h1>
           <p className="mt-5 max-w-3xl text-muted-foreground">
-            TPI Computer Club is an official student-led technology community at the institute. We exist to bridge classroom theory with real-world digital skills through structured learning tracks, expert mentorship, hands-on workshops, and a supportive peer network.
+            TPI Computer Club is the official programming community of the Computer Department at <strong>Tangail Polytechnic Institute (TPI)</strong>. The club was started thinking about every single student of our department — because the books we study today are mostly filled with theory, with very little real coding practice. We wanted a place where TPI students could actually sit down, write code, break things, build projects and learn the way the real industry works.
+          </p>
+          <p className="mt-4 max-w-3xl text-muted-foreground">
+            From the first semester to the final, our goal is simple — no Computer Department student of TPI should leave the institute knowing only definitions. They should leave knowing how to build.
           </p>
         </div>
       </section>
@@ -42,14 +45,14 @@ function About() {
           <Target className="h-6 w-6 text-primary" />
           <h2 className="mt-3 text-xl font-semibold">Our Mission</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            To empower every TPI student with practical, industry-relevant IT skills through community-driven learning, disciplined practice and project-based education.
+            To make sure every Computer Department student at Tangail Polytechnic Institute gets the chance to learn real programming — not just memorise theory from the syllabus, but actually code, build and ship projects.
           </p>
         </div>
         <div className="rounded-2xl border border-border bg-card p-8">
           <Eye className="h-6 w-6 text-primary" />
           <h2 className="mt-3 text-xl font-semibold">Our Vision</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            To become the most active and respected institutional tech community — recognised for producing skilled, ethical and innovative IT professionals.
+            To make TPI Computer Club the strongest student tech community in any polytechnic of Bangladesh — a club where Computer Department students of TPI graduate as skilled developers, ready for the real IT industry.
           </p>
         </div>
       </section>
