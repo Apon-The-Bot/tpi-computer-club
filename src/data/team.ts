@@ -66,7 +66,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "t8",
-    name: "Sirajul Alim Khan Ridom",
+    name: "Seratul Alim Khan Rhythm",
     role: "Publication Secretary",
     department: "CST · 6th Sem · Shift 2",
     bio: "Leads publications, content and editorial work for the club.",
