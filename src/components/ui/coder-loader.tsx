@@ -127,7 +127,7 @@ export function CoderLoader({
           width: 100%;
           height: 100%;
           object-fit: contain;
-          transition: opacity .12s linear;
+          transition: opacity .033s linear;
           z-index: 1;
           will-change: opacity, transform;
           backface-visibility: hidden;
