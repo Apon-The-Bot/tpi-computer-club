@@ -7,8 +7,10 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 import appCss from "../styles.css?url";
+import { CoderLoader } from "@/components/ui/coder-loader";
 
 function NotFoundComponent() {
   return (
@@ -118,10 +120,71 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [done, setDone] = useState(false);
+
+  // Initial mount loader
+  useEffect(() => {
+    const t1 = setTimeout(() => setDone(true), 700);
+    const t2 = setTimeout(() => setLoading(false), 1300);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+
+  // Loader on every navigation (including same-route re-clicks)
+  useEffect(() => {
+    let doneTimer: ReturnType<typeof setTimeout>;
+    let hideTimer: ReturnType<typeof setTimeout>;
+
+    const trigger = () => {
+      clearTimeout(doneTimer);
+      clearTimeout(hideTimer);
+      setDone(false);
+      setLoading(true);
+    };
+    const finish = () => {
+      clearTimeout(doneTimer);
+      clearTimeout(hideTimer);
+      doneTimer = setTimeout(() => setDone(true), 400);
+      hideTimer = setTimeout(() => setLoading(false), 1000);
+    };
+
+    const unsub = router.subscribe("onBeforeNavigate", trigger);
+    const unsubResolved = router.subscribe("onResolved", finish);
+
+    // Catch same-route clicks (router won't fire navigation events for those)
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const target = (e.target as HTMLElement | null)?.closest("a");
+      if (!target) return;
+      const href = target.getAttribute("href");
+      if (!href || href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:") || target.target === "_blank") return;
+      const currentPath = window.location.pathname;
+      const linkPath = href.split("?")[0].split("#")[0];
+      if (linkPath === currentPath) {
+        trigger();
+        finish();
+      }
+    };
+    document.addEventListener("click", onClick);
+
+    return () => {
+      unsub();
+      unsubResolved();
+      document.removeEventListener("click", onClick);
+      clearTimeout(doneTimer);
+      clearTimeout(hideTimer);
+    };
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      {loading && (
+        <div className="fixed inset-0 z-[100] grid place-items-center bg-background/90 backdrop-blur-md animate-in fade-in duration-200">
+          <CoderLoader done={done} size={280} label="Loading…" />
+        </div>
+      )}
     </QueryClientProvider>
   );
 }
