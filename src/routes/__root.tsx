@@ -135,19 +135,43 @@ function RootComponent() {
   useEffect(() => {
     let doneTimer: ReturnType<typeof setTimeout>;
     let hideTimer: ReturnType<typeof setTimeout>;
-    const unsub = router.subscribe("onBeforeNavigate", () => {
+
+    const trigger = () => {
       clearTimeout(doneTimer);
       clearTimeout(hideTimer);
       setDone(false);
       setLoading(true);
-    });
-    const unsubResolved = router.subscribe("onResolved", () => {
-      doneTimer = setTimeout(() => setDone(true), 350);
-      hideTimer = setTimeout(() => setLoading(false), 950);
-    });
+    };
+    const finish = () => {
+      clearTimeout(doneTimer);
+      clearTimeout(hideTimer);
+      doneTimer = setTimeout(() => setDone(true), 400);
+      hideTimer = setTimeout(() => setLoading(false), 1000);
+    };
+
+    const unsub = router.subscribe("onBeforeNavigate", trigger);
+    const unsubResolved = router.subscribe("onResolved", finish);
+
+    // Catch same-route clicks (router won't fire navigation events for those)
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const target = (e.target as HTMLElement | null)?.closest("a");
+      if (!target) return;
+      const href = target.getAttribute("href");
+      if (!href || href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:") || target.target === "_blank") return;
+      const currentPath = window.location.pathname;
+      const linkPath = href.split("?")[0].split("#")[0];
+      if (linkPath === currentPath) {
+        trigger();
+        finish();
+      }
+    };
+    document.addEventListener("click", onClick);
+
     return () => {
       unsub();
       unsubResolved();
+      document.removeEventListener("click", onClick);
       clearTimeout(doneTimer);
       clearTimeout(hideTimer);
     };
