@@ -27,10 +27,10 @@ export function CoderLoader({
   const [tick, setTick] = useState(0);
   const successTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Alternate typing frames quickly to simulate hand movement
+  // Alternate typing frames smoothly to simulate hand movement
   useEffect(() => {
     if (phase !== "typing") return;
-    const id = setInterval(() => setTick((t) => t + 1), 140);
+    const id = setInterval(() => setTick((t) => t + 1), 260);
     return () => clearInterval(id);
   }, [phase]);
 
@@ -67,7 +67,7 @@ export function CoderLoader({
     };
   }, [done, successHoldMs, onSuccessHoldComplete]);
 
-  const typingFrame = tick % 2 === 0 ? typingImg : typing2Img;
+  const typingA = tick % 2 === 0;
 
   return (
     <div className={`flex flex-col items-center justify-center gap-5 ${className}`}>
@@ -79,10 +79,16 @@ export function CoderLoader({
       >
         <div className="coder-glow" />
         <img
-          src={typingFrame}
+          src={typingImg}
           alt=""
           className="coder-frame coder-frame-typing"
-          style={{ opacity: phase === "typing" ? 1 : 0 }}
+          style={{ opacity: phase === "typing" ? (typingA ? 1 : 0) : 0 }}
+        />
+        <img
+          src={typing2Img}
+          alt=""
+          className="coder-frame coder-frame-typing"
+          style={{ opacity: phase === "typing" ? (typingA ? 0 : 1) : 0 }}
         />
         <img
           src={slapImg}
@@ -121,8 +127,9 @@ export function CoderLoader({
           width: 100%;
           height: 100%;
           object-fit: contain;
-          transition: opacity .12s ease;
+          transition: opacity .26s ease-in-out;
           z-index: 1;
+          will-change: opacity, transform;
         }
         .coder-loader-stage[data-phase="typing"] .coder-frame-typing {
           animation: coder-bob 1.6s ease-in-out infinite;
