@@ -120,10 +120,47 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [done, setDone] = useState(false);
+
+  // Initial mount loader
+  useEffect(() => {
+    const t1 = setTimeout(() => setDone(true), 700);
+    const t2 = setTimeout(() => setLoading(false), 1300);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+
+  // Loader on every navigation (including same-route re-clicks)
+  useEffect(() => {
+    let doneTimer: ReturnType<typeof setTimeout>;
+    let hideTimer: ReturnType<typeof setTimeout>;
+    const unsub = router.subscribe("onBeforeNavigate", () => {
+      clearTimeout(doneTimer);
+      clearTimeout(hideTimer);
+      setDone(false);
+      setLoading(true);
+    });
+    const unsubResolved = router.subscribe("onResolved", () => {
+      doneTimer = setTimeout(() => setDone(true), 350);
+      hideTimer = setTimeout(() => setLoading(false), 950);
+    });
+    return () => {
+      unsub();
+      unsubResolved();
+      clearTimeout(doneTimer);
+      clearTimeout(hideTimer);
+    };
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      {loading && (
+        <div className="fixed inset-0 z-[100] grid place-items-center bg-background/90 backdrop-blur-md animate-in fade-in duration-200">
+          <CoderLoader done={done} size={280} label="Loading…" />
+        </div>
+      )}
     </QueryClientProvider>
   );
 }
