@@ -186,7 +186,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <Outlet />
       {loading && (
-        <div className="fixed inset-0 z-[100] grid place-items-center bg-background/90 backdrop-blur-md animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[100] grid place-items-center bg-transparent pointer-events-none animate-in fade-in duration-200">
           <CoderLoader
             done={done}
             size={320}
