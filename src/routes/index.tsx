@@ -12,6 +12,17 @@ import { notices } from "@/data/notices";
 import { team } from "@/data/team";
 import { gallery } from "@/data/gallery";
 import { todaysLiveClass } from "@/data/liveClass";
+import collabAnnouncement from "@/assets/collab-announcement.png";
+import collabCareerSummit from "@/assets/collab-career-summit.png";
+import collabCareerGuidelines from "@/assets/collab-career-guidelines.png";
+import collabAiSummit from "@/assets/collab-ai-summit.png";
+
+const collabs = [
+  { img: collabAnnouncement, title: "Collaboration Announcement", desc: "Polytechnic Coders by Programming Hero × TPI Computer Club." },
+  { img: collabCareerGuidelines, title: "Career Guidelines & QnA Session", desc: "20 Dec 2025 · 7:30 – 8:30 PM with Jhankar Mahbub & Mohammad Anisul Islam." },
+  { img: collabCareerSummit, title: "Polytechnic Career Summit", desc: "Official collaboration with Programming Hero." },
+  { img: collabAiSummit, title: "AI Career Summit 2026", desc: "Presented by Programming Hero × Polytechnic Coders." },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
