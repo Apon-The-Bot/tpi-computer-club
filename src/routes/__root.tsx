@@ -124,27 +124,40 @@ function RootComponent() {
   const [loading, setLoading] = useState(true);
   const [done, setDone] = useState(false);
 
-  // Initial mount: kick off "ready" after a small delay so the success state shows on first paint
-  useEffect(() => {
-    const t = setTimeout(() => setDone(true), 300);
-    return () => clearTimeout(t);
-  }, []);
+  // Minimum time the typing+slap cycle must be visible before "success" can show
+  const MIN_SHOW_MS = 1700;
 
-  // Show loader on every navigation (including same-route re-clicks)
+  // Helper to start a fresh loading cycle and only mark done after MIN_SHOW_MS + page resolved
   useEffect(() => {
+    let startedAt = Date.now();
+    let resolved = false;
+    let doneTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const scheduleDone = () => {
+      if (doneTimer) clearTimeout(doneTimer);
+      const elapsed = Date.now() - startedAt;
+      const wait = Math.max(0, MIN_SHOW_MS - elapsed);
+      doneTimer = setTimeout(() => setDone(true), wait);
+    };
+
     const trigger = () => {
+      if (doneTimer) clearTimeout(doneTimer);
+      startedAt = Date.now();
+      resolved = false;
       setDone(false);
       setLoading(true);
     };
     const finish = () => {
-      // route is resolved -> tell loader it can switch to success
-      setDone(true);
+      resolved = true;
+      scheduleDone();
     };
+
+    // Initial mount: page is already resolved, so wait MIN_SHOW_MS then mark done
+    finish();
 
     const unsub = router.subscribe("onBeforeNavigate", trigger);
     const unsubResolved = router.subscribe("onResolved", finish);
 
-    // Catch same-route clicks (router won't fire navigation events for those)
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const target = (e.target as HTMLElement | null)?.closest("a");
@@ -155,13 +168,14 @@ function RootComponent() {
       const linkPath = href.split("?")[0].split("#")[0];
       if (linkPath === currentPath) {
         trigger();
-        // simulate a quick resolve so success still shows
-        setTimeout(finish, 50);
+        finish();
       }
+      void resolved;
     };
     document.addEventListener("click", onClick);
 
     return () => {
+      if (doneTimer) clearTimeout(doneTimer);
       unsub();
       unsubResolved();
       document.removeEventListener("click", onClick);
